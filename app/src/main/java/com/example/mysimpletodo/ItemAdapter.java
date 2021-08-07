@@ -14,6 +14,10 @@ import java.util.List;
 // Responsible for displaying data from the model into a row in the recycler view
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
+    //---Variables---
+    private List<String> items;
+    private ItemAdapter.OnLongClickListener longClickListener;
+    private ItemAdapter.OnClickListener clickListener;
 
     //---Interfaces---
     public interface OnLongClickListener {
@@ -23,11 +27,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     public interface OnClickListener {
         void onItemClicked(int position);
     }
-
-    //---Variables---
-    private List<String> items;
-    private ItemAdapter.OnLongClickListener longClickListener;
-    private ItemAdapter.OnClickListener clickListener;
 
     //---Constructor---
     public ItemAdapter(List<String> items, ItemAdapter.OnLongClickListener longClickListener, ItemAdapter.OnClickListener clickListener) {

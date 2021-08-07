@@ -15,6 +15,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityOptionsCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -46,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
         addButton = findViewById(R.id.addButton);
         editItem = findViewById(R.id.editItem);
         rvItem = findViewById(R.id.rvItem);
+
+        // Add item divider for RecyclerView
+        rvItem.addItemDecoration(new DividerItemDecoration(rvItem.getContext(), DividerItemDecoration.VERTICAL));
 
         // Handling the result of EditActivity
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
