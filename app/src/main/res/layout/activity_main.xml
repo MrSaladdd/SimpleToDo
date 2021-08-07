@@ -31,7 +31,10 @@
         android:layout_marginBottom="0dp"
         android:layout_toStartOf="@+id/addButton"
         android:ems="10"
-        android:hint="@string/add_an_item_here" />
+        android:hint="@string/add_an_item_here"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        tools:ignore="TextContrastCheck" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvItem"

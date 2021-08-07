@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -13,24 +14,33 @@ import java.util.List;
 // Responsible for displaying data from the model into a row in the recycler view
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
+
+    //---Interfaces---
     public interface OnLongClickListener {
         void onItemLongClicked(int position);
     }
 
+    public interface OnClickListener {
+        void onItemClicked(int position);
+    }
+
     //---Variables---
-    public List<String> items;
-    public ItemAdapter.OnLongClickListener longClickListener;
+    private List<String> items;
+    private ItemAdapter.OnLongClickListener longClickListener;
+    private ItemAdapter.OnClickListener clickListener;
 
     //---Constructor---
-    public ItemAdapter(List<String> items, ItemAdapter.OnLongClickListener longClickListener) {
+    public ItemAdapter(List<String> items, ItemAdapter.OnLongClickListener longClickListener, ItemAdapter.OnClickListener clickListener) {
         this.items = items;
         this.longClickListener = longClickListener;
+        this.clickListener = clickListener;
     }
 
     //---Methods---
 
     // inflate the item layout and create the holder
     // Usually involves inflating a layout from XML and returning the holder
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
@@ -55,6 +65,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         String item = items.get(position);
         // Bind the item at the specified view holder
         holder.bind(item);
+        holder.removeItem();
+        holder.attachActivity();
     }
 
     // Tells the RV how many items are in the list
@@ -79,7 +91,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         // Update the view inside of the view holder with this data
         public void bind(String item) {
             tvItem.setText(item);
-            removeItem();
         }
 
         // Removing an item from the container
@@ -93,6 +104,15 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
                 }
             });
         }
-    }
 
+        public void attachActivity() {
+            tvItem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // Return the position of the item clicked on the view
+                    clickListener.onItemClicked(getBindingAdapterPosition());
+                }
+            });
+        }
+    }
 }
