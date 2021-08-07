@@ -14,6 +14,7 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -42,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         addButton = findViewById(R.id.addButton);
         editItem = findViewById(R.id.editItem);
         rvItem = findViewById(R.id.rvItem);
@@ -109,8 +109,12 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra(KEY_ITEM_TEXT, items.get(position));
                 intent.putExtra(KEY_ITEM_POSITION, position);
 
+                // set the animation
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeCustomAnimation(
+                        MainActivity.this, android.R.anim.fade_in, android.R.anim.fade_out);
+
                 // display the activity
-                activityResultLauncher.launch(intent);
+                activityResultLauncher.launch(intent, options);
                 // startActivityForResult(intent, EDIT_TEXT_CODE); --> Deprecated method
             }
         };

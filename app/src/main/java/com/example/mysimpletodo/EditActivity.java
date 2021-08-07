@@ -44,8 +44,13 @@ public class EditActivity extends AppCompatActivity {
                 setResult(RESULT_OK, intent);
 
                 // finish the activity
-                finish();
+                onBackPressed();
             }
         });
+    }
+    @Override
+    public void onBackPressed() {
+        finish();
+        EditActivity.this.overridePendingTransition(0,android.R.anim.fade_out);
     }
 }
